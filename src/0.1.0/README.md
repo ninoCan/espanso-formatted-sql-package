@@ -25,15 +25,15 @@ Common shortcuts and utilities for faster SQL development.
 
 | Trigger | Replacement | Description | Implemented |
 |---------|-------------|-------------|-------------|
-| `:NN:` | `NOT NULL` | Not null constraint | ✅ |
-| `:PK:` | `PRIMARY KEY` | Primary key constraint | ✅ |
-| `:FK:` | `FOREING KEY ($\|$) REFERENCES tbl(col)` | Foreign key constraint | ✅ |
-| `:IE:` | `IF EXISTS ` | If exists clause | ✅ |
-| `:INE:` | `IF NOT EXISTS ` | If not exists clause | ✅ |
-| `:BTW:` | `BETWEEN $\|$ AND` | Between range operator | ✅ |
-| `:L:` | `LIKE '$\|$'` | Like pattern matching | ✅ |
-| `:NL:` | `NOT LIKE '$\|$'` | Not like pattern matching | ✅ |
-| `:IN:` | `IN ($\|$)` | In list operator | ✅ |
+| `:nn:` | `NOT NULL` | Not null constraint | ✅ |
+| `:pk:` | `PRIMARY KEY` | Primary key constraint | ✅ |
+| `:fk:` | `FOREING KEY ($\|$) REFERENCES tbl(col)` | Foreign key constraint | ✅ |
+| `:ie:` | `IF EXISTS ` | If exists clause | ✅ |
+| `:ine:` | `IF NOT EXISTS ` | If not exists clause | ✅ |
+| `:btw:` | `BETWEEN $\|$ AND` | Between range operator | ✅ |
+| `:l:` | `LIKE '$\|$'` | Like pattern matching | ✅ |
+| `:nl:` | `NOT LIKE '$\|$'` | Not like pattern matching | ✅ |
+| `:in:` | `IN ($\|$)` | In list operator | ✅ |
 
 ### DQL (Data Query Language)
 
@@ -41,29 +41,29 @@ Expansions for querying and retrieving data from the database.
 
 | Trigger | Replacement | Description | Implemented |
 |---------|-------------|-------------|-------------|
-| `:G:` | `GROUP BY $\|$` | Group by clause | ✅ |
-| `:H:` | `HAVING ($\|$)` | Having clause | ✅ |
-| `:OR:` | `ORDER BY $\|$` | Order by ascending | ✅ |
-| `:ORD:` | `ORDER BY $\|$ DESC` | Order by descending | ✅ |
-| `:SF:` | `SELECT\n\t$\|$\nFROM tbl AS` | Select statement with formatted layout | ✅ |
-| `:W:` | `WHERE ($\|$)` | Where clause | ✅ |
-| `:O:` | `\n\tOR ($\|$)` | Or logical operator  | ✅ |
-| `:A:` | `\n\tAND ($\|$)` | And logical operator  | ✅ |
-| `:WE:` | `WHERE EXISTS (\n\t$\|$\n)` | Where exists subquery | ✅ |
-| `:WI:` | `WITH $\|$ AS (\n\t\n)` | Common Table Expression (CTE) | ✅ |
-| `:AS:` | `,\n$\|$ AS (\n\t\n)` | CTE continuation | ✅ |
+| `:g:` | `GROUP BY $\|$` | Group by clause | ✅ |
+| `:h:` | `HAVING ($\|$)` | Having clause | ✅ |
+| `:or:` | `ORDER BY $\|$` | Order by ascending | ✅ |
+| `:ord:` | `ORDER BY $\|$ DESC` | Order by descending | ✅ |
+| `:sf:` | `SELECT\n\t$\|$\nFROM tbl AS` | Select statement with formatted layout | ✅ |
+| `:wh:` | `WHERE ($\|$)` | Where clause | ✅ |
+| `:or:` | `\n\tOR ($\|$)` | Or logical operator  | ✅ |
+| `:and:` | `\n\tAND ($\|$)` | And logical operator  | ✅ |
+| `:we:` | `WHERE EXISTS (\n\t$\|$\n)` | Where exists subquery | ✅ |
+| `:wi:` | `WITH $\|$ AS (\n\t\n)` | Common Table Expression (CTE) | ✅ |
+| `:as:` | `,\n$\|$ AS (\n\t\n)` | CTE continuation | ✅ |
 
 ### Joins
 
 Supported join and union types .
 
 | Trigger | Replacement | Description | Implemented |
-| `:IJ:` | `INNER JOIN $\|$ AS\n\tON ` | Inner join with alias | ✅ |
-| `:LJ:` | `LEFT JOIN $\|$ AS\n\tON ` | Left join with alias | ✅ |
-| `:RJ:` | `RIGHT JOIN $\|$ AS\n\tON ` | Right join with alias | ✅ |
-| `:FJ:` | `FULL JOIN $\|$ AS\n\tON ` | Full outer join with alias | ✅ |
-| `:U:` | `\n\tUNION\n` | Union operator | ✅ |
-| `:UA:` | `\n\tUNION ALL\n` | Union all operator | ✅ |
+| `:ij:` | `INNER JOIN $\|$ AS\n\tON ` | Inner join with alias | ✅ |
+| `:lj:` | `LEFT JOIN $\|$ AS\n\tON ` | Left join with alias | ✅ |
+| `:rj:` | `RIGHT JOIN $\|$ AS\n\tON ` | Right join with alias | ✅ |
+| `:fj:` | `FULL JOIN $\|$ AS\n\tON ` | Full outer join with alias | ✅ |
+| `:u:` | `\n\tUNION\n` | Union operator | ✅ |
+| `:ua:` | `\n\tUNION ALL\n` | Union all operator | ✅ |
 
 ### DDL (Data Definition Language)
 
@@ -71,20 +71,20 @@ Expansions for defining and modifying database structure.
 
 | Trigger | Replacement | Description | Implemented |
 |---------|-------------|-------------|-------------|
-| `:CD:` | `CREATE DATABASE $\|$;` | Create database statement | ✅ |
-| `:CI:` | `CREATE INDEX $\|$\n\tON tbl (cols);` | Create index statement | ✅ |
-| `:CT:` | `CREATE TABLE $\|$ (\n\n);` | Create table | ✅ |
-| `:CTA:` | `CREATE TABLE $\|$ AS\n` | Create table as select | ✅ |
-| `:CVA:` | `CREATE VIEW $\|$ AS\n` | Create view statement | ✅ |
-| `:AD:` | `ALTER DATABASE $\|$` | Alter database statement | ✅ |
-| `:AT:` | `ALTER TABLE $\|$` | Alter table statement | ✅ |
-| `:AV:` | `ALTER VIEW $\|$` | Alter view statement | ✅ |
-| `:DD:` | `DROP DATABASE $\|$;` | Drop database statement | ✅ |
-| `:DI:` | `DROP INDEX $\|$;` | Drop index statement | ✅ |
-| `:DT:` | `DROP TABLE $\|$;` | Drop table statement | ✅ |
-| `:CO:` | `COMMENT '$\|$' ON` | Attach comment clause | ✅ |
-| `:RE:` | `RENAME $\|$ TO` | Rename object clause | ✅ |
-| `:TR:` | `TRUNCATE TABLE '$\|$';` | Rename object clause | ✅ |
+| `:cd:` | `CREATE DATABASE $\|$;` | Create database statement | ✅ |
+| `:ci:` | `CREATE INDEX $\|$\n\tON tbl (cols);` | Create index statement | ✅ |
+| `:ct:` | `CREATE TABLE $\|$ (\n\n);` | Create table | ✅ |
+| `:cta:` | `CREATE TABLE $\|$ AS\n` | Create table as select | ✅ |
+| `:cva:` | `CREATE VIEW $\|$ AS\n` | Create view statement | ✅ |
+| `:ad:` | `ALTER DATABASE $\|$` | Alter database statement | ✅ |
+| `:at:` | `ALTER TABLE $\|$` | Alter table statement | ✅ |
+| `:av:` | `ALTER VIEW $\|$` | Alter view statement | ✅ |
+| `:dd:` | `DROP DATABASE $\|$;` | Drop database statement | ✅ |
+| `:di:` | `DROP INDEX $\|$;` | Drop index statement | ✅ |
+| `:dt:` | `DROP TABLE $\|$;` | Drop table statement | ✅ |
+| `:co:` | `COMMENT '$\|$' ON` | Attach comment clause | ✅ |
+| `:re:` | `RENAME $\|$ TO` | Rename object clause | ✅ |
+| `:tr:` | `TRUNCATE TABLE '$\|$';` | Rename object clause | ✅ |
 
 ### DCL (Data Control Language)
 
@@ -92,11 +92,10 @@ Expansions for managing permissions and access control.
 
 | Trigger | Replacement | Description | Implemented |
 |---------|-------------|-------------|-------------|
-| `:GO:` | `GRANT  OPTION` | atomic GRANT OPTION clause | ✅ |
-| `:GOT:` | `GRANT  ON  TO ` | Grant permissions statement | ✅ |
-| `:ROF:` | `REVOKE  ON  FROM ` | Revoke permissions statement | ✅ |
-| `:CS:` | `CASCADE;` | Revoke cascade final clause | ✅ |
-| `:GDOT:` | `GRANT DELETE ON  TO ` | Grant delete permission | ✅ |
+| `:go:` | `GRANT  OPTION` | atomic GRANT OPTION clause | ✅ |
+| `:got:` | `GRANT  ON  TO ` | Grant permissions statement | ✅ |
+| `:rof:` | `REVOKE  ON  FROM ` | Revoke permissions statement | ✅ |
+| `:cs:` | `CASCADE;` | Revoke cascade final clause | ✅ |
 
 ### DML (Data Manipulation Language)
 
@@ -104,13 +103,14 @@ Expansions for inserting, updating, and deleting data.
 
 | Trigger | Replacement | Description | Implemented |
 |---------|-------------|-------------|-------------|
-| `:INS:` | `INSERT INTO $\|$ (cols)\n\tVALUES ()` | Insert statement with values | ✅ |
-| `:UP:` | `UPDATE $\|$\nSET` | Update statement template | ✅ |
-| `:DEL:` | `DELETE FROM` | Delete statement | ✅ |
-| `:EX:` | `EXPLAIN PLAN FOR\n` | Explain plan | ✅ |
-| `:LC:` | `LOCK $|$ IN` | Lock object clause | ✅ |
-| `:EX:` | `EXPLAIN PLAN FOR\n` | Explain plan | ✅ |
+| `:ins:` | `INSERT INTO $\|$ (cols)\n\tVALUES ()` | Insert statement with values | ✅ |
+| `:up:` | `UPDATE $\|$\nSET` | Update statement template | ✅ |
+| `:del:` | `DELETE FROM` | Delete statement | ✅ |
+| `:ex:` | `EXPLAIN PLAN FOR\n` | Explain plan | ✅ |
+| `:lc:` | `LOCK $|$ IN` | Lock object clause | ✅ |
+| `:ex:` | `EXPLAIN PLAN FOR\n` | Explain plan | ✅ |
 
+### TCL (Transaction Control Language)
 ## Usage Examples
 
 Here are some examples of how these abbreviations compose together:
