@@ -1,0 +1,7 @@
+name: "formatted-sql"
+title: "Formatted SQL"
+description: A quick, composable memonic-based set of abbreviationn to write formatted ANSI:2023 SQL queries
+homepage: "https://github.com/ninoCan/espanso-formatted-sql-package"
+version: 0.1.0
+author: ninoCan
+tags: ["SQL", "ANSI:2023", "FORMATTED"]
