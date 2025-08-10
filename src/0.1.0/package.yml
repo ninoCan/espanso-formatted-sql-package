@@ -1,5 +1,5 @@
 matches:
-    # Shorthands
+  # Shorthands
   - trigger: ":nn:"
     replace: "NOT NULL"
   - trigger: ":ie:"
@@ -15,8 +15,18 @@ matches:
   - trigger: ":in:"
     replace: "IN ($|$)"
 
+    # conditionals
+  - trigger: ":case:"
+    replace: "CASE $|$\nEND"
+  - trigger: ":caseas:"
+    replace: "CASE $|$\nEND AS"
+  - trigger: ":when:"
+    replace: "WHEN $|$ THEN"
+
     # Aggregates
   - trigger: ":count:"
+    replace: "COUNT($|$)"
+  - trigger: ":countas:"
     replace: "COUNT($|$) AS"
   - trigger: ":sum:"
     replace: "SUM($|$) AS"
@@ -32,6 +42,18 @@ matches:
     replace: "OVER($|$)"
   - trigger: ":pb:"
     replace: "PARTITION BY "
+  - trigger: ":rb:"
+    replace: "ROWS BETWEEN $|$ AND"
+  - trigger: ":prec:"
+    replace: "PRECEDING"
+  - trigger: ":unprec:"
+    replace: "UNBOUNDED PRECEDING"
+  - trigger: ":foll:"
+    replace: "FOLLOWING"
+  - trigger: ":unfoll:"
+    replace: "UNBOUNDED FOLLOWING"
+  - trigger: ":cr:"
+    replace: "CURRENT ROW"
   - trigger: ":first:"
     replace: "FIRST_VALUE() AS"
   - trigger: ":last:"
@@ -43,7 +65,6 @@ matches:
   - trigger: ":row:"
     replace: "ROW_NUMBER() AS"
 
-
     # DQL
   - trigger: ":gb:"
     replace: "GROUP BY $|$"
@@ -54,7 +75,7 @@ matches:
   - trigger: ":obd:"
     replace: "ORDER BY $|$ DESC"
   - trigger: ":sf:"
-    replace: "SELECT\n\t$|$\nFROM"
+    replace: "SELECT\n\nFROM$|$"
   - trigger: ":w:"
     replace: "WHERE $|$"
   - trigger: ":we:"
@@ -88,9 +109,9 @@ matches:
   - trigger: ":ci:"
     replace: "CREATE INDEX $|$\n\tON"
   - trigger: ":ct:"
-    REPLACE: "CREATE TABLE $|$ (\n\n);"
+    replace: "CREATE TABLE $|$ (\n\n);"
   - trigger: ":cta:"
-    REPLACE: "CREATE TABLE $|$ AS\n"
+    replace: "CREATE TABLE $|$ AS\n"
   - trigger: ":cva:"
     replace: "CREATE VIEW $|$ AS\n"
   - trigger: ":ad:"
@@ -173,4 +194,3 @@ matches:
     replace: "\n\t\t<-[:$|$]- (:)"
   - trigger: ":cols:"
     replace: "\n\t COLUMNS ()"
-

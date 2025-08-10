@@ -35,11 +35,12 @@ Common shortcuts and utilities for faster SQL development.
 
 ### Aggregates
 
-Supported aggregate functions with explanatory alias.
+Supported aggregate and window functions with explanatory alias.
 
 | Trigger | Replacement | Description |
 |---------|-------------|-------------|
 | `:count:` | `COUNT($\|$) AS` |  Count operator |
+# TODO: complete table
 
 
 ### DQL (Data Query Language)
@@ -147,6 +148,7 @@ Manipulate property graphs.
 
 | Trigger | Replacement | Description |
 |---------|-------------|-------------|
+# TODO: complete table
 
 ## Usage Examples
 
@@ -166,6 +168,7 @@ ORDER BY created_at;
 ```
 
 **Complex Join:**
+# TODO: clean examples below
 ```sql
 -- Type: :SF: u.name, p.title :IJ: posts p :W: u.id = p.user_id
 SELECT
