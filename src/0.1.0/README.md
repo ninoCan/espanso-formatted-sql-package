@@ -1,6 +1,7 @@
 # formatted-sql
 
-A quick, composable, mnemonic-based set of abbreviations to write formatted ANSI:2023 SQL queries.
+A quick, compoundable, mnemonic-based set of abbreviations to write formatted queries.
+Striving to be ANSI SQL:2023 compliant, yet based on PostgreSQL syntax.
 
 ## Motivations
 
@@ -11,23 +12,26 @@ Other existing SQL expansion packages suffer from significant limitations that h
 - **Poor formatting** produces SQL that lacks consistent indentation, and readability standards
 
 This package addresses these issues by providing:
+
 - **Modular design** allowing you to compose complex queries from simple, reusable components
 - **Mnemonic triggers** that follow intuitive patterns based on SQL keywords and common abbreviations
 - **Consistent formatting** that produces clean, readable SQL following modern best practices
 
 ## Abbreviations
 
-The abbreviation system is designed around mnemonic patterns that mirror SQL's natural structure. Each trigger uses uppercase letters with colons (`:trigger:`) for easy recognition and follows logical naming conventions. The `$|$` marker indicates where your cursor will be positioned after expansion.
+The abbreviation system is designed around mnemonic patterns that mirror SQL's natural structure.
+Each trigger uses uppercase letters with colons (`:trigger:`) for easy recognition and follows logical naming conventions.
+The `$|$` marker indicates where your cursor will be positioned after expansion.
 
-### Shorthands
+### Short-hands
 
 Common shortcuts and utilities for faster SQL development.
 
 | Trigger | Replacement | Description |
 |---------|-------------|-------------|
 | `:nn:` | `NOT NULL` | Not null constraint |
-| `:ie:` | `IF EXISTS ` | If exists clause |
-| `:ine:` | `IF NOT EXISTS ` | If not exists clause |
+| `:ie:` | `IF EXISTS` | If exists clause |
+| `:ine:` | `IF NOT EXISTS` | If not exists clause |
 | `:btw:` | `BETWEEN $\|$ AND` | Between range operator |
 | `:l:` | `LIKE '$\|$'` | Like pattern matching |
 | `:nl:` | `NOT LIKE '$\|$'` | Not like pattern matching |
@@ -40,8 +44,8 @@ Supported aggregate and window functions with explanatory alias.
 | Trigger | Replacement | Description |
 |---------|-------------|-------------|
 | `:count:` | `COUNT($\|$) AS` |  Count operator |
-# TODO: complete table
 
+# TODO: complete table
 
 ### DQL (Data Query Language)
 
@@ -67,10 +71,10 @@ Supported join and union types .
 
 | Trigger | Replacement | Description |
 | ------- | ----------- | ----------- |
-| `:ij:` | `INNER JOIN $\|$ AS\n\tON ` | Inner join with alias |
-| `:lj:` | `LEFT JOIN $\|$ AS\n\tON ` | Left join with alias |
-| `:rj:` | `RIGHT JOIN $\|$ AS\n\tON ` | Right join with alias |
-| `:fj:` | `FULL JOIN $\|$ AS\n\tON ` | Full outer join with alias |
+| `:ij:` | `INNER JOIN $\|$ AS\n\tON` | Inner join with alias |
+| `:lj:` | `LEFT JOIN $\|$ AS\n\tON` | Left join with alias |
+| `:rj:` | `RIGHT JOIN $\|$ AS\n\tON` | Right join with alias |
+| `:fj:` | `FULL JOIN $\|$ AS\n\tON` | Full outer join with alias |
 | `:u:` | `\n\tUNION\n` | Union operator |
 | `:ua:` | `\n\tUNION ALL\n` | Union all operator |
 
@@ -114,8 +118,8 @@ Expansions for managing permissions and access control.
 | Trigger | Replacement | Description |
 |---------|-------------|-------------|
 | `:go:` | `GRANT  OPTION` | atomic GRANT OPTION clause |
-| `:got:` | `GRANT  ON  TO ` | Grant permissions statement |
-| `:rof:` | `REVOKE  ON  FROM ` | Revoke permissions statement |
+| `:got:` | `GRANT  ON  TO` | Grant permissions statement |
+| `:rof:` | `REVOKE  ON  FROM` | Revoke permissions statement |
 | `:cs:` | `CASCADE;` | Revoke cascade final clause |
 
 ### DML (Data Manipulation Language)
@@ -133,6 +137,7 @@ Expansions for inserting, updating, and deleting data.
 | `:cp:` | `CALL $\|$();` | Call procedure clause |
 
 ### TCL (Transaction Control Language)
+
 Expansion for managing transactional control
 
 | Trigger | Replacement | Description |
@@ -148,6 +153,7 @@ Manipulate property graphs.
 
 | Trigger | Replacement | Description |
 |---------|-------------|-------------|
+
 # TODO: complete table
 
 ## Usage Examples
@@ -168,16 +174,19 @@ ORDER BY created_at;
 ```
 
 **Complex Join:**
+
 # TODO: clean examples below
+
 ```sql
 -- Type: :SF: u.name, p.title :IJ: posts p :W: u.id = p.user_id
 SELECT
 u.name, p.title
 FROM INNER JOIN posts p AS
-	ON  WHERE u.id = p.user_id
+ ON  WHERE u.id = p.user_id
 ```
 
 **CTE Example:**
+
 ```sql
 -- Type: :WI: active_users :SF: * FROM active_users
 WITH active_users AS (

@@ -2,8 +2,6 @@
 
 ## Contributions are welcomed
 
-If you want to contribute to this package, feel free to open a PR!
-
 ### Run the package validation locally
 
 Sometimes it's useful to run the validation process locally. To do so, you have
@@ -31,4 +29,3 @@ uv run .github/scripts/validate/main.py
 ```
 
 - wait until you have the results!
-
