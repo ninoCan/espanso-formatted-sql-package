@@ -1,7 +1,7 @@
 matches:
   # Shorthands
   - trigger: ";d;"
-    replace: "DISTINCT"
+    replace: "DISTINCT $|$"
   - trigger: ";n;"
     replace: "NULL"
   - trigger: ";nn;"
@@ -205,11 +205,11 @@ matches:
   - trigger: ";ranb;"
     replace: "range BETWEEN $|$ AND"
   - trigger: ";prec;"
-    replace: "PRECEDING"
+    replace: "$|$ PRECEDING"
   - trigger: ";unprec;"
     replace: "UNBOUNDED PRECEDING"
   - trigger: ";foll;"
-    replace: "FOLLOWING"
+    replace: "$|$ FOLLOWING"
   - trigger: ";unfoll;"
     replace: "UNBOUNDED FOLLOWING"
   - trigger: ";cr;"

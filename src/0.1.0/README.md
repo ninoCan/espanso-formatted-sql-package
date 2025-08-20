@@ -50,8 +50,8 @@ Common shortcuts and utilities for faster SQL development.
 
 Supported functions and operators with mnemonic triggers.
 
-| Trigger      | Replacement                 | Description                                               |
-| ------------ | --------------------------- | --------------------------------------------------------- |
+| Trigger    | Replacement               | Description                                               |
+| ---------- | ------------------------- | --------------------------------------------------------- |
 | `;coal;`     | `COALESCE($\|$, )`          | Concatenate two or more strings                           |
 | `;corr;`     | `CORR($\|$, )`              | Correlation between two values                            |
 | `;cast;`     | `CAST($\|$ AS )`            | Cast operator                                             |
@@ -176,21 +176,13 @@ Supported window functions with explanatory alias.
 
 | Trigger | Replacement | Description |
 | ------- | ----------- | ----------- |
-
-- trigger: ";rowb;"
-  replace: "ROWS BETWEEN $|$ AND"
-- trigger: ";ranb;"
-  replace: "range BETWEEN $|$ AND"
-- trigger: ";prec;"
-  replace: "PRECEDING"
-- trigger: ";unprec;"
-  replace: "UNBOUNDED PRECEDING"
-- trigger: ";foll;"
-  replace: "FOLLOWING"
-- trigger: ";unfoll;"
-  replace: "UNBOUNDED FOLLOWING"
-- trigger: ";cr;"
-  replace: "CURRENT ROW"
+| `;rowb;` | `ROWS BETWEEN $\|$ AND` | Select the rows between two indices or keywords | 
+| `;ranb;` | `range BETWEEN $\|$ AND` | Select  | #TODO
+| `;prec;` | `$\|$ PRECEDING` | Point to n rows backward |
+| `;unprec;` | `UNBOUNDED PRECEDING` | Point to the beginning of the column |
+| `;foll;` | `$\|$ FOLLOWING` | Point to n rows forward |
+| `;unfoll;` | `UNBOUNDED FOLLOWING` | Point to the end of the column |
+| `;cr;` | `CURRENT ROW` | Point to current row |
 
 #### Joins
 
@@ -198,12 +190,22 @@ Supported join and union types .
 
 | Trigger | Replacement                | Description                |
 | ------- | -------------------------- | -------------------------- |
-| `:ij:`  | `INNER JOIN $\|$ AS\n\tON` | Inner join with alias      |
-| `:lj:`  | `LEFT JOIN $\|$ AS\n\tON`  | Left join with alias       |
-| `:rj:`  | `RIGHT JOIN $\|$ AS\n\tON` | Right join with alias      |
-| `:fj:`  | `FULL JOIN $\|$ AS\n\tON`  | Full outer join with alias |
-| `:u:`   | `\n\tUNION\n`              | Union operator             |
-| `:ua:`  | `\n\tUNION ALL\n`          | Union all operator         |
+| `;ij;` | `INNER JOIN $\|$ AS\n\tON ` | Inner join () | # TODO
+| `;lj;` | `LEFT JOIN $\|$ AS\n\tON ` | Left outer join () | #TODO
+| `;rj;` | `RIGHT JOIN $\|$ AS\n\tON ` | Right outer join () | # TODO
+| `;fj;` | `FULL OUTER JOIN $\|$ AS\n\tON ` | Full outer join () |
+| `;cj;` | `CROSS JOIN $\|$ AS` | Cartesian join |
+| `;nj;` | `NATURAL JOIN $\|$ AS` | Automatically apply equalilty condition on column with same name (inner join) |
+| `;nlj;` | `NATURAL LEFT JOIN $\|$ AS` |  Automatically apply equalilty condition on column with same name (left outer join) |
+| `;nrj;` | `NATURAL RIGHT JOIN $\|$ AS` |   Automatically apply equalilty condition on column with same name (right outer join) |
+| `;u;` | `\n\tUNION\n` | Vertical merge two table having the same number of column | #TODO
+| `;ua;` | `\n\tUNION ALL\n` |  Vertical merge two table having the same number of column (remove duplicate)  | #TODO
+| `;exc;` | `\n\tEXCEPT\n` | Remove matching row from first table (Set difference) |
+| `;int;` | `\n\tINTERSECT\n` | Keep only common rows (Set intersection) |
+| `;lat;` | `LATERAL $\|$` |  | #TODO
+| `;us;` | `USING $\|$` | Specify columns with equalilty match |
+| `;off;` | `OFFSET $\|$` | Skip first n rows from results |
+| `;fet;` | `FETCH $\|$ ROW ONLY;` | Keeps first n rows and skip the rest |
 
 ### DDL (Data Definition Language)
 
@@ -211,20 +213,23 @@ Expansions for defining and modifying database structure.
 
 | Trigger | Replacement                           | Description               |
 | ------- | ------------------------------------- | ------------------------- |
-| `:cd:`  | `CREATE DATABASE $\|$;`               | Create database statement |
-| `:ci:`  | `CREATE INDEX $\|$\n\tON tbl (cols);` | Create index statement    |
-| `:ct:`  | `CREATE TABLE $\|$ (\n\n);`           | Create table              |
-| `:cta:` | `CREATE TABLE $\|$ AS\n`              | Create table as select    |
-| `:cva:` | `CREATE VIEW $\|$ AS\n`               | Create view statement     |
-| `:ad:`  | `ALTER DATABASE $\|$`                 | Alter database statement  |
-| `:at:`  | `ALTER TABLE $\|$`                    | Alter table statement     |
-| `:av:`  | `ALTER VIEW $\|$`                     | Alter view statement      |
-| `:dd:`  | `DROP DATABASE $\|$;`                 | Drop database statement   |
-| `:di:`  | `DROP INDEX $\|$;`                    | Drop index statement      |
-| `:dt:`  | `DROP TABLE $\|$;`                    | Drop table statement      |
-| `:co:`  | `COMMENT '$\|$' ON`                   | Attach comment clause     |
-| `:re:`  | `RENAME $\|$ TO`                      | Rename object clause      |
-| `:tr:`  | `TRUNCATE TABLE '$\|$';`              | Rename object clause      |
+| `;cd;`  | `CREATE DATABASE $\|$;`               | Create database statement |
+| `;ci;`  | `CREATE INDEX $\|$\n\tON tbl (cols);` | Create index statement    |
+| `;ct;`  | `CREATE TABLE $\|$ (\n\n);`           | Create table              |
+| `;ctt;`  | `CREATE TEMP TABLE $\|$ (\n\n);`           | Create ephemeral, session-bound table              |
+| `;ctas;`  | `CREATE TABLE $\|$ (\n\n);`           | Create table              |
+| `;cta;` | `CREATE TABLE $\|$ AS\n`              | Create table as select    |
+| `;cv;` | `CREATE VIEW $\|$ AS\n`               | Create view statement     |
+| `;ctv;` | `CREATE TEMP VIEW $\|$ AS\n`               | Create ephemeral session-bound view     |
+| `;ad;`  | `ALTER DATABASE $\|$`                 | Alter database statement  |
+| `;at;`  | `ALTER TABLE $\|$`                    | Alter table statement     |
+| `;av;`  | `ALTER VIEW $\|$`                     | Alter view statement      |
+| `;dd;`  | `DROP DATABASE $\|$;`                 | Drop database statement   |
+| `;di;`  | `DROP INDEX $\|$;`                    | Drop index statement      |
+| `;dt;`  | `DROP TABLE $\|$;`                    | Drop table statement      |
+| `;co;`  | `COMMENT '$\|$' ON`                   | Attach comment clause     |
+| `;re;`  | `RENAME $\|$ TO`                      | Rename object clause      |
+| `;tr;`  | `TRUNCATE TABLE '$\|$';`              | Rename object clause      |
 
 #### Constraints
 
@@ -232,11 +237,17 @@ Supported constraints on DDL
 
 | Trigger | Replacement                     | Description                        |
 | ------- | ------------------------------- | ---------------------------------- |
-| `:pk:`  | `PRIMARY KEY`                   | Primary key constraint             |
-| `:fk:`  | `FOREING KEY ($\|$) REFERENCES` |
-| `:un:`  | `UNIQUE ($\|$)`                 | Unique constraint                  |
-| `:nd:`  | `NULLS DISTINCT`                | Some unique constraint can be null |
-| `:nnd:` | `NULLS NOT DISTINCT`            | No unique constraint can be null   |
+  - trigger: ";cons;" replace: "CONSTRAINT $\|$"
+  - trigger: ";un;" replace: "UNIQUE ($\|$)"
+  - trigger: ";nd;" replace: "NULLS DISTINCT"
+  - trigger: ";nnd;" replace: "NULLS NOT DISTINCT"
+  - trigger: ";pk;" replace: "PRIMARY KEY"
+  - trigger: ";fk;" replace: "FOREING KEY ($\|$) REFERENCES"
+  - trigger: ";ch;" replace: "CHECK ($\|$)"
+  - trigger: ";ga;" replace: "GENERATED ALWAYS AS ($\|$)"
+  - trigger: ";gas;" replace: "GENERATED ALWAYS AS ($\|$) STORED"
+  - trigger: ";inh;" replace: "INHERITS ($\|$)"
+  - trigger: ";wo;" replace: "WITHOUT OVERLAPS"
 
 ### DCL (Data Control Language)
 
