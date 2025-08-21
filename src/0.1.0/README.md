@@ -31,15 +31,15 @@ Common shortcuts and utilities for faster SQL development.
 | -------- | ---------------------------- | ------------------------------------------------------------------ |
 | `;d;`    | `DISTINCT`                   | Distinct keyword                                                   |
 | `;n;`    | `NULL`                       | NULL keyword                                                       |
-| `;nn;`   | `NOT NULL`                   | NOT NLL keyword                                                    |
+| `;nn;`   | `NOT NULL`                   | NOT NULL keyword                                                   |
 | `;ie;`   | `IF EXISTS`                  | In-line existance conditional                                      |
-| `;ife;`  | `IF NOT EXISTS`              | In-line non-existance conditional                                  |
+| `;ine;`  | `IF NOT EXISTS`              | In-line non-existance conditional                                  |
 | `;btw;`  | `BETWEEN $\|$ AND`           | Range between boolean                                              |
 | `;btws;` | `BETWEEN SYMMETRIC $\|$ AND` | Symmetric range between boolean                                    |
 | `;l;`    | `LIKE '$\|$'`                | SQL comparator                                                     |
 | `;nl;`   | `NOT LIKE '$\|$'`            | SQL negated comparator                                             |
 | `;st;`   | `SIMILAR TO '$\|$'`          | SQL regex comparator                                               |
-| `;nst;`  | `NOT SIMILAR TO '$\|$'`      | SQL negated regetx comparator                                      |
+| `;nst;`  | `NOT SIMILAR TO '$\|$'`      | SQL negated regexp comparator                                      |
 | `;in;`   | `IN ($\|$)`                  | In-line is-in boolean operator                                     |
 | `;ex;`   | `EXISTS (\n\t$\|$\n)`        | Boolean operator: true when argument query returns any row         |
 | `;some;` | `SOME (\n\t$\|$\n)`          | Boolean RHS: allowing an operator to check against argument column |
@@ -50,12 +50,14 @@ Common shortcuts and utilities for faster SQL development.
 
 Supported functions and operators with mnemonic triggers.
 
-| Trigger    | Replacement               | Description                                               |
-| ---------- | ------------------------- | --------------------------------------------------------- |
+| Trigger      | Replacement                 | Description                                               |
+| ------------ | --------------------------- | --------------------------------------------------------- |
 | `;coal;`     | `COALESCE($\|$, )`          | Concatenate two or more strings                           |
 | `;corr;`     | `CORR($\|$, )`              | Correlation between two values                            |
 | `;cast;`     | `CAST($\|$ AS )`            | Cast operator                                             |
 | `;round;`    | `ROUND($\|$, 2)`            | Mathematical round operator                               |
+| `;greatest;` | `GREATEST($\|$, )`          | Take the greatest of two arguments                        |
+| `;least;`    | `LEAST($\|$, )`             | Take the least of two arguments                           |
 | `;sub;`      | `SUBSTRING($\|$ FROM FOR )` | Extract substring                                         |
 | `;substr;`   | `SUBSTRING($\|$, , )`       | Extract substring (compact)                               |
 | `;low;`      | `LOWER($\|$)`               | Make string lowercase                                     |
@@ -74,24 +76,25 @@ Supported functions and operators with mnemonic triggers.
 | `;ltrim;`    | `LTRIM($\|$, )`             | Trim substring (default spaces from left)                 |
 | `;lpad;`     | `LPAD($\|$, )`              | Apply left padding of n characters (default padding `*`)  |
 | `;rpad;`     | `RPAD($\|$, )`              | Apply right padding of n characters (default padding `*`) |
-| `;sa;`       | `STRING_AGG($\|$, )`        | Aggegate column into a string using separator             |
+| `;sa;`       | `STRING_AGG($\|$, )`        | Aggregate column into a string using separator            |
 | `;any;`      | `ANY ($\|$)`                | Operator RHS to checks against all elements of an array   |
-| `;contains;` | `@> ARRAY['$\|$']`          | Check if a string is prensent in array                    |
+| `;contains;` | `@> ARRAY['$\|$']`          | Check if a string is present in array                     |
 
 #### Datetime
 
 Supported date and time functions.
 
-| Trigger   | Replacement           | Description                                                  |
-| --------- | --------------------- | ------------------------------------------------------------ |
-| `;extr;`  | `EXTRACT($\|$ FROM )` | Extract entity from DATE/INTERVAL/TIMESTAMP(TZ)              |
-| `;inter;` | `INTERVAL '$\|$'`     | Define interval from string                                  |
-| `;date;`  | `DATE '$\|$'`         | Define date from string                                      |
-| `;ts;`    | `TIMESTAMP '$\|$'`    | Define timestamp from string                                 |
-| `;tsz;`   | `TIMESTAMPTZ '$\|$'`  | Define timestamp (with timezone) from string                 |
-| `;time;`  | `TIME '$\|$'`         | Define time from string                                      |
-| `;ol;`    | `OVERLAPS ('$\|$', )` | Check whether previous interval overlaps with the argument   |
-| `;age;`   | `AGE($\|$)`           | Substract two timestamps (denfault to now with one argument) |
+| Trigger    | Replacement           | Description                                                |
+| ---------- | --------------------- | ---------------------------------------------------------- |
+| `;extr;`   | `EXTRACT($\|$ FROM )` | Extract entity from DATE/INTERVAL/TIMESTAMP(TZ)            |
+| `;dtrunc;` | `DATE_TRUNC'$\|$')`   | Extract closest entity from date                           |
+| `;inter;`  | `INTERVAL '$\|$'`     | Define interval from string                                |
+| `;date;`   | `DATE '$\|$'`         | Define date from string                                    |
+| `;ts;`     | `TIMESTAMP '$\|$'`    | Define timestamp from string                               |
+| `;tsz;`    | `TIMESTAMPTZ '$\|$'`  | Define timestamp (with timezone) from string               |
+| `;time;`   | `TIME '$\|$'`         | Define time from string                                    |
+| `;ol;`     | `OVERLAPS ('$\|$', )` | Check whether previous interval overlaps with the argument |
+| `;age;`    | `AGE($\|$)`           | Subtract two timestamps (default to now with one argument) |
 
 #### Conditionals
 
@@ -107,18 +110,18 @@ Supported conditional statements.
 
 Expansions for querying and retrieving data from the database.
 
-| Trigger  | Replacement              | Description                                 |
-| -------- | ------------------------ | ------------------------------------------- |
-| `;with;` | `WITH $\|$ AS (\n\t\n)`  | Begin a CTE clause                          |
-| `;as;`   | `,\n$\|$ AS (\n\t\n)`    | Continue with another CTE                   |
-| `;s;`    | `SELECT $\|$`            | Single select keyword                       |
-| `;f;`    | `FROM $\|$`              | Single from keyword                         |
-| `;sf;`   | `SELECT\n\nFROM $\|$ AS` | Combined Select-From clause                 |
-| `;w;`    | `WHERE $\|$`             | Declare column level filtering              |
-| `;h;`    | `HAVING $\|$`            | Declare filtering at aggregation level      |
-| `;ob;`   | `ORDER BY $\|$`          | Begin ordering clause                       |
-| `;obd;`  | `ORDER BY $\|$ DESC`     | Begin descending ordering clause            |
-| `;oba;`  | `ORDER BY $\|$ ASC`      | Begin ordering clause (explictly ascending) |
+| Trigger  | Replacement              | Description                                  |
+| -------- | ------------------------ | -------------------------------------------- |
+| `;with;` | `WITH $\|$ AS (\n\t\n)`  | Begin a CTE clause                           |
+| `;as;`   | `,\n$\|$ AS (\n\t\n)`    | Continue with another CTE                    |
+| `;s;`    | `SELECT $\|$`            | Single select keyword                        |
+| `;f;`    | `FROM $\|$`              | Single from keyword                          |
+| `;sf;`   | `SELECT\n\nFROM $\|$ AS` | Combined Select-From clause                  |
+| `;w;`    | `WHERE $\|$`             | Declare column level filtering               |
+| `;h;`    | `HAVING $\|$`            | Declare filtering at aggregation level       |
+| `;ob;`   | `ORDER BY $\|$`          | Begin ordering clause                        |
+| `;obd;`  | `ORDER BY $\|$ DESC`     | Begin descending ordering clause             |
+| `;oba;`  | `ORDER BY $\|$ ASC`      | Begin ordering clause (explicitly ascending) |
 
 #### Sampling
 
@@ -128,81 +131,87 @@ Supported sampling methods to attach to the FROM clause.
 | ----------- | ------------------------------------------- | -------------------------------------------------------- |
 | `;sample;`  | `TABLESAMPLE SYSTEM ($\|$)`                 | Randomly samples a given fraction of rows from the table |
 | `;rsample;` | `TABLESAMPLE SYSTEM ($\|$) REPEATABLE()`    | Random sampling with deterministic seed                  |
-| `;berm;`    | `TABLESAMPLE BERMOULLI ($\|$)`              | Bermolli sampling methods for uniform sampling           |
-| `;rberm;`   | `TABLESAMPLE BERMOULLI ($\|$) REPEATABLE()` | Bemoulli sampling with deterministic seed                |
+| `;berm;`    | `TABLESAMPLE BERMOULLI ($\|$)`              | Bermoulli sampling methods for uniform sampling          |
+| `;rberm;`   | `TABLESAMPLE BERMOULLI ($\|$) REPEATABLE()` | Bermoulli sampling with deterministic seed               |
 
 #### Aggregates
 
 Supported aggregate functions with explanatory alias.
 
-| Trigger     | Replacement               | Description                                               |
-| ----------- | ------------------------- | --------------------------------------------------------- |
-| `;gb;`      | `GROUP BY $\|$`           | Begin grouping clause                                     |
-| `;cube;`    | `CUBE($\|$, )`            | Declare the columns that make up the cube                 |
-| `;roll;`    | `ROLLUP($\|$)`            | Pick one or more column to rollup against                 |
-| `;gs;`      | `GROUPING SETS(\n$\|$\n)` | Grouping sets for advenced aggregation fine-tuning        |
-| `;count;`   | `COUNT($\|$)`             | Scalar number of specified rows (\* to include null rows) |
-| `;countas;` | `COUNT($\|$) AS`          | Count with alias clause                                   |
-| `;sum;`     | `SUM($\|$)`               | Returns scalar sum of values in column                    |
-| `;sumas;`   | `SUM($\|$) AS`            | Sum with alias clause                                     |
-| `;avg;`     | `AVG($\|$)`               | Return scalar average of values in column                 |
-| `;avgas;`   | `AVG($\|$) AS`            | Average with alias clause                                 |
-| `;max;`     | `MAX($\|$)`               | Return scalar maximum of values in column                 |
-| `;maxas;`   | `MAX($\|$) AS`            | Max with alias clause                                     |
-| `;min;`     | `MIN($\|$)`               | Return scalar minimum of values in column                 |
-| `;minas;`   | `MIN($\|$) AS`            | Min with alias clause                                     |
-| `;std;`     | `STDDEV($\|$)`            | Return scalar starndard deviation of values in column     |
-| `;stdas;`   | `STDDEV($\|$) AS`         | Stddev with alias clause                                  |
+| Trigger     | Replacement                                      | Description                                               |
+| ----------- | ------------------------------------------------ | --------------------------------------------------------- |
+| `;gb;`      | `GROUP BY $\|$`                                  | Begin grouping clause                                     |
+| `;cube;`    | `CUBE($\|$, )`                                   | Declare the columns that make up the cube                 |
+| `;roll;`    | `ROLLUP($\|$)`                                   | Pick one or more column to roll-up against                |
+| `;gs;`      | `GROUPING SETS(\n$\|$\n)`                        | Grouping sets for advanced aggregation fine-tuning        |
+| `;count;`   | `COUNT($\|$)`                                    | Scalar number of specified rows (\* to include null rows) |
+| `;countas;` | `COUNT($\|$) AS`                                 | Count with alias clause                                   |
+| `;sum;`     | `SUM($\|$)`                                      | Returns scalar sum of values in column                    |
+| `;sumas;`   | `SUM($\|$) AS`                                   | Sum with alias clause                                     |
+| `;avg;`     | `AVG($\|$)`                                      | Return scalar average of values in column                 |
+| `;avgas;`   | `AVG($\|$) AS`                                   | Average with alias clause                                 |
+| `;max;`     | `MAX($\|$)`                                      | Return scalar maximum of values in column                 |
+| `;maxas;`   | `MAX($\|$) AS`                                   | Max with alias clause                                     |
+| `;min;`     | `MIN($\|$)`                                      | Return scalar minimum of values in column                 |
+| `;minas;`   | `MIN($\|$) AS`                                   | Min with alias clause                                     |
+| `;std;`     | `STDDEV($\|$)`                                   | Return scalar starndard deviation of values in column     |
+| `;stdas;`   | `STDDEV($\|$) AS`                                | Stddev with alias clause                                  |
+| `;mode;`    | `MODE() WITHIN GROUP (ORDER BY $\|$)`            | Calculate the mode over a column                          |
+| `;percont;` | `PERCENTILE_CONT($\|$) WITHIN GROUP (ORDER BY )` | Calculate the continuous percentile over a column         |
+| `;perdisc;` | `PERCENTILE_DISC($\|$) WITHIN GROUP (ORDER BY )` | Calculate the discrete percentile over a column           |
 
 #### Window Functions
 
 Supported window functions with explanatory alias.
 
-| Trigger   | Replacement                   | Description                                                                   |
-| --------- | ----------------------------- | ----------------------------------------------------------------------------- |
-| `;win;`   | `WINDOW $\|$ AS ()`           | Create a common window clause to share across multiple functions              |
-| `;over;`  | `OVER($\|$)`                  | Specify the window range (default to whole column)                            |
-| `;pb;`    | `PARTITION BY `               | Specify the columns over which create multiple windows                        |
-| `;rnum;`  | `ROW_NUMBER() OVER($\|$) AS`  | Rank rows (if same values, assign random order)                               |
-| `;rank;`  | `RANK() OVER($\|$) AS`        | Rank rows (same rank for equal values, increment by degeneracy)               |
-| `;drank;` | `DENSE_RANK() OVER($\|$) AS`  | Rank rows in window (same rank for equal values, but always increment by one) |
-| `;first;` | `FIRST_VALUE($\|$) OVER() AS` | Return first value over the window                                            |
-| `;last;`  | `LAST_VALUE($\|$) OVER() AS`  | Return last value over the window                                             |
-| `;lag;`   | `LAG($\|$) OVER() AS`         | Slide argument column forward (default by one)                                |
-| `;lead;`  | `LEAD($\|$) OVER() AS`        | Slide argument column backward (default by one)                               |
-| `;ntile;` | `NTILE($\|$) OVER() AS`       | Divide column in n buckets, return bucket number on row                       |
+| Trigger     | Replacement                   | Description                                                                   |
+| ----------- | ----------------------------- | ----------------------------------------------------------------------------- |
+| `;win;`     | `WINDOW $\|$ AS ()`           | Create a common window clause to share across multiple functions              |
+| `;over;`    | `OVER($\|$)`                  | Specify the window range (default to whole column)                            |
+| `;pb;`      | `PARTITION BY `               | Specify the columns over which create multiple windows                        |
+| `;rnum;`    | `ROW_NUMBER() OVER($\|$) AS`  | Rank rows (if same values, assign random order)                               |
+| `;rank;`    | `RANK() OVER($\|$) AS`        | Rank rows (same rank for equal values, increment by degeneracy)               |
+| `;drank;`   | `DENSE_RANK() OVER($\|$) AS`  | Rank rows in window (same rank for equal values, but always increment by one) |
+| `;perrank;` | `PERCENT_RANK() OVER($\|$)`   | Rank rows in window in percent point                                          |
+| `;cumdist;` | `CUME_DIST() OVER($\|$)`      | Rank rows in window in continuous distribution from 0 to 1                    |
+| `;first;`   | `FIRST_VALUE($\|$) OVER() AS` | Return first value over the window                                            |
+| `;last;`    | `LAST_VALUE($\|$) OVER() AS`  | Return last value over the window                                             |
+| `;lag;`     | `LAG($\|$) OVER() AS`         | Slide argument column forward (default by one)                                |
+| `;lead;`    | `LEAD($\|$) OVER() AS`        | Slide argument column backward (default by one)                               |
+| `;ntile;`   | `NTILE($\|$) OVER() AS`       | Divide column in n buckets, return bucket number on row                       |
+| `;nvalue;`  | `N_VALUE($\|$) OVER() AS`     | Divide column in n buckets, return bucket number on row                       |
 
 ##### window frames
 
-| Trigger | Replacement | Description |
-| ------- | ----------- | ----------- |
-| `;rowb;` | `ROWS BETWEEN $\|$ AND` | Select the rows between two indices or keywords | 
-| `;ranb;` | `range BETWEEN $\|$ AND` | Select  | #TODO
-| `;prec;` | `$\|$ PRECEDING` | Point to n rows backward |
-| `;unprec;` | `UNBOUNDED PRECEDING` | Point to the beginning of the column |
-| `;foll;` | `$\|$ FOLLOWING` | Point to n rows forward |
-| `;unfoll;` | `UNBOUNDED FOLLOWING` | Point to the end of the column |
-| `;cr;` | `CURRENT ROW` | Point to current row |
+| Trigger    | Replacement              | Description                                     |
+| ---------- | ------------------------ | ----------------------------------------------- | ----- |
+| `;rowb;`   | `ROWS BETWEEN $\|$ AND`  | Select the rows between two indices or keywords |
+| `;ranb;`   | `RANGE BETWEEN $\|$ AND` | Select                                          | #TODO |
+| `;prec;`   | `$\|$ PRECEDING`         | Point to n rows backward                        |
+| `;unprec;` | `UNBOUNDED PRECEDING`    | Point to the beginning of the column            |
+| `;foll;`   | `$\|$ FOLLOWING`         | Point to n rows forward                         |
+| `;unfoll;` | `UNBOUNDED FOLLOWING`    | Point to the end of the column                  |
+| `;cr;`     | `CURRENT ROW`            | Point to current row                            |
 
 #### Joins
 
 Supported join and union types .
 
-| Trigger | Replacement                | Description                |
-| ------- | -------------------------- | -------------------------- |
-| `;ij;` | `INNER JOIN $\|$ AS\n\tON ` | Inner join () | # TODO
-| `;lj;` | `LEFT JOIN $\|$ AS\n\tON ` | Left outer join () | #TODO
-| `;rj;` | `RIGHT JOIN $\|$ AS\n\tON ` | Right outer join () | # TODO
+| Trigger | Replacement | Description |
+| ------- || ------- || ------- |
+| `;ij;` | `INNER JOIN $\|$ AS\n\tON ` | Inner join () | # TODO |
+| `;lj;` | `LEFT JOIN $\|$ AS\n\tON ` | Left outer join () | #TODO |
+| `;rj;` | `RIGHT JOIN $\|$ AS\n\tON ` | Right outer join () | # TODO |
 | `;fj;` | `FULL OUTER JOIN $\|$ AS\n\tON ` | Full outer join () |
 | `;cj;` | `CROSS JOIN $\|$ AS` | Cartesian join |
 | `;nj;` | `NATURAL JOIN $\|$ AS` | Automatically apply equalilty condition on column with same name (inner join) |
-| `;nlj;` | `NATURAL LEFT JOIN $\|$ AS` |  Automatically apply equalilty condition on column with same name (left outer join) |
-| `;nrj;` | `NATURAL RIGHT JOIN $\|$ AS` |   Automatically apply equalilty condition on column with same name (right outer join) |
-| `;u;` | `\n\tUNION\n` | Vertical merge two table having the same number of column | #TODO
-| `;ua;` | `\n\tUNION ALL\n` |  Vertical merge two table having the same number of column (remove duplicate)  | #TODO
+| `;nlj;` | `NATURAL LEFT JOIN $\|$ AS` | Automatically apply equalilty condition on column with same name (left outer join) |
+| `;nrj;` | `NATURAL RIGHT JOIN $\|$ AS` | Automatically apply equalilty condition on column with same name (right outer join) |
+| `;u;` | `\n\tUNION\n` | Vertical merge two table having the same number of column | #TODO |
+| `;ua;` | `\n\tUNION ALL\n` | Vertical merge two table having the same number of column (remove duplicate) | #TODO |
 | `;exc;` | `\n\tEXCEPT\n` | Remove matching row from first table (Set difference) |
 | `;int;` | `\n\tINTERSECT\n` | Keep only common rows (Set intersection) |
-| `;lat;` | `LATERAL $\|$` |  | #TODO
+| `;lat;` | `LATERAL $\|$` | | #TODO |
 | `;us;` | `USING $\|$` | Specify columns with equalilty match |
 | `;off;` | `OFFSET $\|$` | Skip first n rows from results |
 | `;fet;` | `FETCH $\|$ ROW ONLY;` | Keeps first n rows and skip the rest |
@@ -211,25 +220,25 @@ Supported join and union types .
 
 Expansions for defining and modifying database structure.
 
-| Trigger | Replacement                           | Description               |
-| ------- | ------------------------------------- | ------------------------- |
-| `;cd;`  | `CREATE DATABASE $\|$;`               | Create database statement |
-| `;ci;`  | `CREATE INDEX $\|$\n\tON tbl (cols);` | Create index statement    |
-| `;ct;`  | `CREATE TABLE $\|$ (\n\n);`           | Create table              |
-| `;ctt;`  | `CREATE TEMP TABLE $\|$ (\n\n);`           | Create ephemeral, session-bound table              |
-| `;ctas;`  | `CREATE TABLE $\|$ (\n\n);`           | Create table              |
-| `;cta;` | `CREATE TABLE $\|$ AS\n`              | Create table as select    |
-| `;cv;` | `CREATE VIEW $\|$ AS\n`               | Create view statement     |
-| `;ctv;` | `CREATE TEMP VIEW $\|$ AS\n`               | Create ephemeral session-bound view     |
-| `;ad;`  | `ALTER DATABASE $\|$`                 | Alter database statement  |
-| `;at;`  | `ALTER TABLE $\|$`                    | Alter table statement     |
-| `;av;`  | `ALTER VIEW $\|$`                     | Alter view statement      |
-| `;dd;`  | `DROP DATABASE $\|$;`                 | Drop database statement   |
-| `;di;`  | `DROP INDEX $\|$;`                    | Drop index statement      |
-| `;dt;`  | `DROP TABLE $\|$;`                    | Drop table statement      |
-| `;co;`  | `COMMENT '$\|$' ON`                   | Attach comment clause     |
-| `;re;`  | `RENAME $\|$ TO`                      | Rename object clause      |
-| `;tr;`  | `TRUNCATE TABLE '$\|$';`              | Rename object clause      |
+| Trigger  | Replacement                           | Description                           |
+| -------- | ------------------------------------- | ------------------------------------- |
+| `;cd;`   | `CREATE DATABASE $\|$;`               | Create database statement             |
+| `;ci;`   | `CREATE INDEX $\|$\n\tON tbl (cols);` | Create index statement                |
+| `;ct;`   | `CREATE TABLE $\|$ (\n\n);`           | Create table                          |
+| `;ctt;`  | `CREATE TEMP TABLE $\|$ (\n\n);`      | Create ephemeral, session-bound table |
+| `;ctas;` | `CREATE TABLE $\|$ (\n\n);`           | Create table                          |
+| `;cta;`  | `CREATE TABLE $\|$ AS\n`              | Create table as select                |
+| `;cv;`   | `CREATE VIEW $\|$ AS\n`               | Create view statement                 |
+| `;ctv;`  | `CREATE TEMP VIEW $\|$ AS\n`          | Create ephemeral session-bound view   |
+| `;ad;`   | `ALTER DATABASE $\|$`                 | Alter database statement              |
+| `;at;`   | `ALTER TABLE $\|$`                    | Alter table statement                 |
+| `;av;`   | `ALTER VIEW $\|$`                     | Alter view statement                  |
+| `;dd;`   | `DROP DATABASE $\|$;`                 | Drop database statement               |
+| `;di;`   | `DROP INDEX $\|$;`                    | Drop index statement                  |
+| `;dt;`   | `DROP TABLE $\|$;`                    | Drop table statement                  |
+| `;co;`   | `COMMENT '$\|$' ON`                   | Attach comment clause                 |
+| `;re;`   | `RENAME $\|$ TO`                      | Rename object clause                  |
+| `;tr;`   | `TRUNCATE TABLE '$\|$';`              | Rename object clause                  |
 
 #### Constraints
 

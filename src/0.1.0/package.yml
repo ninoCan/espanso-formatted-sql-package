@@ -42,6 +42,10 @@ matches:
     replace: "CAST($|$ AS )"
   - trigger: ";round;"
     replace: "ROUND($|$, 2)"
+  - trigger: ";greatest;"
+    replace: "GREATEST($|$, )"
+  - trigger: ";least;"
+    replace: "LEAST($|$, )"
   - trigger: ";sub;"
     replace: "SUBSTRING($|$ FROM FOR )"
   - trigger: ";substr;"
@@ -87,6 +91,8 @@ matches:
     # Datetime
   - trigger: ";extr;"
     replace: "EXTRACT($|$ FROM )"
+  - trigger: ";dtrunc;"
+    replace: "DATE_TRUNC('$|$', )"
   - trigger: ";inter;"
     replace: "INTERVAL '$|$'"
   - trigger: ";date;"
@@ -175,6 +181,17 @@ matches:
     replace: "STDDEV($|$)"
   - trigger: ";stdas;"
     replace: "STDDEV($|$) AS"
+    # Set aggregate functions
+  - trigger: ";mode;"
+    replace: "MODE() WITHIN GROUP (ORDER BY $|$)"
+  - trigger: ";percont;"
+    replace: "PERCENTILE_CONT($|$) WITHIN GROUP (ORDER BY )"
+  - trigger: ";perdisc;"
+    replace: "PERCENTILE_DISC($|$) WITHIN GROUP (ORDER BY )"
+  - trigger: ";perrank;"
+    replace: "PERCENT_RANK($|$) WITHIN GROUP (ORDER BY )"
+  - trigger: ";cumdisc;"
+    replace: "CUME_DIST($|$) WITHIN GROUP (ORDER BY )"
 
     # Window functions
   - trigger: ";win;"
