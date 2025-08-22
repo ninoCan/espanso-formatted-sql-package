@@ -164,57 +164,59 @@ Supported aggregate functions with explanatory alias.
 
 Supported window functions with explanatory alias.
 
-| Trigger     | Replacement                   | Description                                                                   |
-| ----------- | ----------------------------- | ----------------------------------------------------------------------------- |
-| `;win;`     | `WINDOW $\|$ AS ()`           | Create a common window clause to share across multiple functions              |
-| `;over;`    | `OVER($\|$)`                  | Specify the window range (default to whole column)                            |
-| `;pb;`      | `PARTITION BY `               | Specify the columns over which create multiple windows                        |
-| `;rnum;`    | `ROW_NUMBER() OVER($\|$) AS`  | Rank rows (if same values, assign random order)                               |
-| `;rank;`    | `RANK() OVER($\|$) AS`        | Rank rows (same rank for equal values, increment by degeneracy)               |
-| `;drank;`   | `DENSE_RANK() OVER($\|$) AS`  | Rank rows in window (same rank for equal values, but always increment by one) |
-| `;perrank;` | `PERCENT_RANK() OVER($\|$)`   | Rank rows in window in percent point                                          |
-| `;cumdist;` | `CUME_DIST() OVER($\|$)`      | Rank rows in window in continuous distribution from 0 to 1                    |
-| `;first;`   | `FIRST_VALUE($\|$) OVER() AS` | Return first value over the window                                            |
-| `;last;`    | `LAST_VALUE($\|$) OVER() AS`  | Return last value over the window                                             |
-| `;lag;`     | `LAG($\|$) OVER() AS`         | Slide argument column forward (default by one)                                |
-| `;lead;`    | `LEAD($\|$) OVER() AS`        | Slide argument column backward (default by one)                               |
-| `;ntile;`   | `NTILE($\|$) OVER() AS`       | Divide column in n buckets, return bucket number on row                       |
-| `;nvalue;`  | `N_VALUE($\|$) OVER() AS`     | Divide column in n buckets, return bucket number on row                       |
+| Trigger     | Replacement                   | Description                                                      |
+| ----------- | ----------------------------- | ---------------------------------------------------------------- |
+| `;win;`     | `WINDOW $\|$ AS ()`           | Create a common window clause to share across multiple functions |
+| `;over;`    | `OVER($\|$)`                  | Specify the window range (default to whole column)               |
+| `;pb;`      | `PARTITION BY `               | Specify the columns over which create multiple windows           |
+| `;rnum;`    | `ROW_NUMBER() OVER($\|$) AS`  | Rank rows (if same values, assign random order)                  |
+| `;rank;`    | `RANK() OVER($\|$) AS`        | Rank rows (row ties have same rank, produces gaps)               |
+| `;drank;`   | `DENSE_RANK() OVER($\|$) AS`  | Rank rows (row ties have same rank, no gaps)                     |
+| `;perrank;` | `PERCENT_RANK() OVER($\|$)`   | Rank rows in window in percent point                             |
+| `;cumdist;` | `CUME_DIST() OVER($\|$)`      | Rank rows in window in continuous distribution from 0 to 1       |
+| `;first;`   | `FIRST_VALUE($\|$) OVER() AS` | Return first value over the window                               |
+| `;last;`    | `LAST_VALUE($\|$) OVER() AS`  | Return last value over the window                                |
+| `;lag;`     | `LAG($\|$) OVER() AS`         | Slide argument column forward (default by one)                   |
+| `;lead;`    | `LEAD($\|$) OVER() AS`        | Slide argument column backward (default by one)                  |
+| `;ntile;`   | `NTILE($\|$) OVER() AS`       | Divide column in n buckets, return bucket number on row          |
+| `;nvalue;`  | `NTH_VALUE($\|$) OVER() AS`   | Divide column in n buckets, return bucket number on row          |
 
 ##### window frames
 
-| Trigger    | Replacement              | Description                                     |
-| ---------- | ------------------------ | ----------------------------------------------- | ----- |
-| `;rowb;`   | `ROWS BETWEEN $\|$ AND`  | Select the rows between two indices or keywords |
-| `;ranb;`   | `RANGE BETWEEN $\|$ AND` | Select                                          | #TODO |
-| `;prec;`   | `$\|$ PRECEDING`         | Point to n rows backward                        |
-| `;unprec;` | `UNBOUNDED PRECEDING`    | Point to the beginning of the column            |
-| `;foll;`   | `$\|$ FOLLOWING`         | Point to n rows forward                         |
-| `;unfoll;` | `UNBOUNDED FOLLOWING`    | Point to the end of the column                  |
-| `;cr;`     | `CURRENT ROW`            | Point to current row                            |
+| Trigger    | Replacement              | Description                                         |
+| ---------- | ------------------------ | --------------------------------------------------- |
+| `;rowbtw;` | `ROWS BETWEEN $\|$ AND`  | Define a frame on a subset of the ORDER BY column   |
+| `;ranbtw;` | `RANGE BETWEEN $\|$ AND` | Define a frame (row ties are included in the range) |
+| `;grpbtw;` | `GROUP BETWEEN $\|$ AND` | Define a frame over groups instead of rows          |
+| `;prec;`   | `$\|$ PRECEDING`         | Point to n rows backward                            |
+| `;unprec;` | `UNBOUNDED PRECEDING`    | Point to the beginning of the column                |
+| `;foll;`   | `$\|$ FOLLOWING`         | Point to n rows forward                             |
+| `;unfoll;` | `UNBOUNDED FOLLOWING`    | Point to the end of the column                      |
+| `;cr;`     | `CURRENT ROW`            | Point to current row                                |
+| `;cg;`     | `CURRENT GROUP`          | Point to current group                              |
 
 #### Joins
 
 Supported join and union types .
 
-| Trigger | Replacement | Description |
-| ------- || ------- || ------- |
-| `;ij;` | `INNER JOIN $\|$ AS\n\tON ` | Inner join () | # TODO |
-| `;lj;` | `LEFT JOIN $\|$ AS\n\tON ` | Left outer join () | #TODO |
-| `;rj;` | `RIGHT JOIN $\|$ AS\n\tON ` | Right outer join () | # TODO |
-| `;fj;` | `FULL OUTER JOIN $\|$ AS\n\tON ` | Full outer join () |
-| `;cj;` | `CROSS JOIN $\|$ AS` | Cartesian join |
-| `;nj;` | `NATURAL JOIN $\|$ AS` | Automatically apply equalilty condition on column with same name (inner join) |
-| `;nlj;` | `NATURAL LEFT JOIN $\|$ AS` | Automatically apply equalilty condition on column with same name (left outer join) |
-| `;nrj;` | `NATURAL RIGHT JOIN $\|$ AS` | Automatically apply equalilty condition on column with same name (right outer join) |
-| `;u;` | `\n\tUNION\n` | Vertical merge two table having the same number of column | #TODO |
-| `;ua;` | `\n\tUNION ALL\n` | Vertical merge two table having the same number of column (remove duplicate) | #TODO |
-| `;exc;` | `\n\tEXCEPT\n` | Remove matching row from first table (Set difference) |
-| `;int;` | `\n\tINTERSECT\n` | Keep only common rows (Set intersection) |
-| `;lat;` | `LATERAL $\|$` | | #TODO |
-| `;us;` | `USING $\|$` | Specify columns with equalilty match |
-| `;off;` | `OFFSET $\|$` | Skip first n rows from results |
-| `;fet;` | `FETCH $\|$ ROW ONLY;` | Keeps first n rows and skip the rest |
+| Trigger | Replacement                      | Description                                            |
+| ------- | -------------------------------- | ------------------------------------------------------ |
+| `;ij;`  | `INNER JOIN $\|$ AS\n\tON `      | Expand to Inner join                                   |
+| `;lj;`  | `LEFT JOIN $\|$ AS\n\tON `       | Expand to Left outer join ()                           |
+| `;rj;`  | `RIGHT JOIN $\|$ AS\n\tON `      | Expand to Right outer join ()                          |
+| `;fj;`  | `FULL OUTER JOIN $\|$ AS\n\tON ` | Expand to Full outer join ()                           |
+| `;cj;`  | `CROSS JOIN $\|$ AS`             | Expand to Cartesian join                               |
+| `;nj;`  | `NATURAL JOIN $\|$ AS`           | Automatically apply equality condition on same columns |
+| `;nlj;` | `NATURAL LEFT JOIN $\|$ AS`      | Automatically apply equality condition on same columns |
+| `;nrj;` | `NATURAL RIGHT JOIN $\|$ AS`     | Automatically apply equality condition on same columns |
+| `;u;`   | `UNION`                          | Vertical merge two tables (remove duplicates)          |
+| `;ua;`  | `UNION ALL`                      | Vertical merge two tables                              |
+| `;exc;` | `EXCEPT`                         | Remove matching row from first table (Set difference)  |
+| `;int;` | INTERSECT`                       | Keep only common rows (Set intersection)               |
+| `;lat;` | `LATERAL $\|$`                   | Allows subquery to reference column of the main query  |
+| `;us;`  | `USING $\|$`                     | Specify same-name columns to use in join               |
+| `;off;` | `OFFSET $\|$`                    | Skip first n rows from results                         |
+| `;fet;` | `FETCH $\|$ ROW ONLY;`           | Keeps first n rows and skip the rest                   |
 
 ### DDL (Data Definition Language)
 
@@ -244,19 +246,19 @@ Expansions for defining and modifying database structure.
 
 Supported constraints on DDL
 
-| Trigger | Replacement                     | Description                        |
-| ------- | ------------------------------- | ---------------------------------- |
-  - trigger: ";cons;" replace: "CONSTRAINT $\|$"
-  - trigger: ";un;" replace: "UNIQUE ($\|$)"
-  - trigger: ";nd;" replace: "NULLS DISTINCT"
-  - trigger: ";nnd;" replace: "NULLS NOT DISTINCT"
-  - trigger: ";pk;" replace: "PRIMARY KEY"
-  - trigger: ";fk;" replace: "FOREING KEY ($\|$) REFERENCES"
-  - trigger: ";ch;" replace: "CHECK ($\|$)"
-  - trigger: ";ga;" replace: "GENERATED ALWAYS AS ($\|$)"
-  - trigger: ";gas;" replace: "GENERATED ALWAYS AS ($\|$) STORED"
-  - trigger: ";inh;" replace: "INHERITS ($\|$)"
-  - trigger: ";wo;" replace: "WITHOUT OVERLAPS"
+| Trigger  | Replacement                         | Description                                  |
+| -------- | ----------------------------------- | -------------------------------------------- |
+| `;cons;` | `CONSTRAINT $\|$`                   | Define named constraint                      |
+| `;un;`   | `UNIQUE ($\|$)`                     | Force column to have unique values           |
+| `;nd;`   | `NULLS DISTINCT`                    | Treat nulls as distinct values               |
+| `;nnd;`  | `NULLS NOT DISTINCT`                | Do not treat nulls as distinct values        |
+| `;pk;`   | `PRIMARY KEY`                       | Define primary key constraint                |
+| `;fk;`   | `FOREING KEY ($\|$) REFERENCES`     | Define foreign key constraint                |
+| `;ch;`   | `CHECK ($\|$)`                      | Apply conditional constraint to column       |
+| `;ga;`   | `GENERATED ALWAYS AS ($\|$)`        | Define computed column based on other values |
+| `;gas;`  | `GENERATED ALWAYS AS ($\|$) STORED` | Define and persist computed column           |
+| `;inh;`  | `INHERITS ($\|$)`                   | Inherit definition from other table          |
+| `;wo;`   | `WITHOUT OVERLAPS`                  | Prevents overlapping ranges in temporal data |
 
 ### DCL (Data Control Language)
 
@@ -264,24 +266,24 @@ Expansions for managing permissions and access control.
 
 | Trigger | Replacement        | Description                  |
 | ------- | ------------------ | ---------------------------- |
-| `:go:`  | `GRANT  OPTION`    | atomic GRANT OPTION clause   |
-| `:got:` | `GRANT  ON  TO`    | Grant permissions statement  |
-| `:rof:` | `REVOKE  ON  FROM` | Revoke permissions statement |
-| `:cs:`  | `CASCADE;`         | Revoke cascade final clause  |
+| `;go;`  | `GRANT  OPTION`    | atomic GRANT OPTION clause   |
+| `;got;` | `GRANT  ON  TO`    | Grant permissions statement  |
+| `;rof;` | `REVOKE  ON  FROM` | Revoke permissions statement |
+| `;cs;`  | `CASCADE;`         | Revoke cascade final clause  |
 
 ### DML (Data Manipulation Language)
 
 Expansions for inserting, updating, and deleting data.
 
-| Trigger | Replacement                                 | Description                  |
-| ------- | ------------------------------------------- | ---------------------------- |
-| `:iis:` | `INSERT INTO $\|$ (cols)\n\tVALUES ()`      | Insert statement with values |
-| `:up:`  | `UPDATE $\|$\nSET`                          | Update statement template    |
-| `:df:`  | `DELETE FROM`                               | Delete statement             |
-| `:ex:`  | `EXPLAIN PLAN FOR\n`                        | Explain plan                 |
-| `:lc:`  | `LOCK $\|$ IN`                              | Lock object clause           |
-| `:cpa:` | `CREATE PROCEDURE '$\|$' AS\nBEGIN\n\nEND;` | Create procedure statement   |
-| `:cp:`  | `CALL $\|$();`                              | Call procedure clause        |
+| Trigger  | Replacement                                 | Description                  |
+| -------- | ------------------------------------------- | ---------------------------- |
+| `;iis;`  | `INSERT INTO $\|$ (cols)\n\tVALUES ()`      | Insert statement with values |
+| `;up;`   | `UPDATE $\|$\nSET`                          | Update statement template    |
+| `;df;`   | `DELETE FROM`                               | Delete statement             |
+| `;expl;` | `EXPLAIN PLAN FOR\n`                        | Explain plan                 |
+| `;lc;`   | `LOCK $\|$ IN`                              | Lock object clause           |
+| `;cpa;`  | `CREATE PROCEDURE '$\|$' AS\nBEGIN\n\nEND;` | Create procedure statement   |
+| `;cp;`   | `CALL $\|$();`                              | Call procedure clause        |
 
 ### TCL (Transaction Control Language)
 
@@ -289,19 +291,32 @@ Expansion for managing transactional control
 
 | Trigger | Replacement               | Description                 |
 | ------- | ------------------------- | --------------------------- |
-| `:bt:`  | `BEGIN TRANSACTION $\|$;` | Begin transaction statement |
-| `:c:`   | `COMMIT;`                 | End transaction statement   |
-| `:r:`   | `ROLLBACK;`               | Rollback statement          |
-| `:s:`   | `SAVEPOINT $\|$ IN`       | Save checkpoint clause      |
+| `;bt;`  | `BEGIN TRANSACTION $\|$;` | Begin transaction statement |
+| `;c;`   | `COMMIT;`                 | End transaction statement   |
+| `;r;`   | `ROLLBACK;`               | Rollback statement          |
+| `;s;`   | `SAVEPOINT $\|$ IN`       | Save checkpoint clause      |
 
 ### GQL (Graph Query Language)
 
 Manipulate property graphs.
+**WATCHOUT** this is a new standard, not currently supported by PostgreSQL as of 09/2025.
+Following [Google Spanner](https://cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements) definition instead.
+For more info: <https://www.gqlstandards.org/>
 
-| Trigger | Replacement | Description |
-| ------- | ----------- | ----------- |
-
-# TODO: complete table
+| Trigger  | Replacement                             | Description                                        |
+| -------- | --------------------------------------- | -------------------------------------------------- |
+| `;g;`    | `GRAPH (\n\n)`                          | Specify a Property Graph to query                  |
+| `;cpg;`  | `CREATE PROPERTY GRAPH $\|$`            | Begin Property Graph todefinition                  |
+| `;crpg;` | `CREATE OR REPLACE PROPERTY GRAPH $\|$` | Overwrite Property Graph todefinition              |
+| `;gt;`   | `GRAPH_TABLE (\n\n)`                    | Query a graph as a table                           |
+| `;fil;`  | `FILTER $\|$`                           | Filter out rows                                    |
+| `;for;`  | `FOR $\|$ IN `                          | Unnest an array and joins elements to table        |
+| `;woff;` | `WITH OFFSET`                           | Add offset column to the join of the FOR statement |
+| `;l;`    | `LET  $\|$ = `                          | Define and assign variable                         |
+| `;m;`    | `MATCH ($\|$:)`                         | Match a graph pattern                              |
+| `;>;`    | `-[:$\|$]-> (:)`                        | Relation to other node                             |
+| `;<;`    | `<-[:$\|$]- (:)`                        | Relation from other node                           |
+| `;ret;`  | `RETURN `                               | Ends a linear query                                |
 
 ## Usage Examples
 
@@ -309,7 +324,7 @@ Here are some examples of how these abbreviations compose together:
 
 ### Basic Query
 
-Type: `:SF:id<arrow-down><return>:W:status = 'active'<return>:OR: created_at;`
+Type: `;sf;user<arrow-up>id<arrow-down><end><return><arrow-down>;w;status = 'active'<return>;ob; created_at;`
 to obtain:
 
 ```sql
