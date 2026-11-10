@@ -239,8 +239,10 @@ Expansions for defining and modifying database structure.
 | `;di;`   | `DROP INDEX $\|$;`                    | Drop index statement                  |
 | `;dt;`   | `DROP TABLE $\|$;`                    | Drop table statement                  |
 | `;co;`   | `COMMENT '$\|$' ON`                   | Attach comment clause                 |
-| `;re;`   | `RENAME $\|$ TO`                      | Rename object clause                  |
-| `;tr;`   | `TRUNCATE TABLE '$\|$';`              | Rename object clause                  |
+| `;tr;`   | `TRUNCATE TABLE '$\|$';`              | Truncate a table by name                  |
+| `;rt;`   | `RENAME $\|$ TO`                      | Rename object clause                  |
+| `;ac;`   | `ADD COLUMN $\|$`                     | Add a new column clause                  |
+| `;dc;`   | `DROP COLUMN $\|$`                     | Drop a column by name                  |
 
 #### Constraints
 
